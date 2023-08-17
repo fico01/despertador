@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despertador em JavaScript</title>
+</head>
+<body>
+    <h1>Despertador em JavaScript</h1>
+    <label for="alarmTime">Horário do alarme: </label>
+    <input type="time" id="alarmTime">
+    <button id="setAlarm">Definir Alarme</button>
+
+    <script>
+        document.getElementById("setAlarm").addEventListener("click", function() {
+            const alarmTimeInput = document.getElementById("alarmTime");    //Pega o valor que esta no input do alarme
+            const alarmTime = alarmTimeInput.value;
+
+            if (alarmTime === "") { // se estiver vazio vai pedir pra por um valor
+                alert("Por favor, selecione um horário válido.");
+                return;
+            }
+
+            const now = new Date(); // pega a hora que esta
+            const [hours, minutes] = alarmTime.split(":"); // define o tempo do alarme
+            const alarmDateTime = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate(),
+                parseInt(hours),
+                parseInt(minutes)
+            );
+
+            const timeUntilAlarm = alarmDateTime - now; // cronometro
+
+            if (timeUntilAlarm <= 0) { // se o tempo do alarme ficar menor que 0 toca essa mensagem
+                alert("O horário do alarme já passou.");
+            } else {
+                setTimeout(function() { //" toca o alarme"
+                    alert("Alarme! É hora de acordar!");
+                }, timeUntilAlarm);
+            }
+            
+        });
+    </script>
+</body>
+</html>
